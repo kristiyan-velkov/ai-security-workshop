@@ -66,9 +66,9 @@ export const INSECURE_AREAS = [
     id: "supply-chain",
     challengeNumber: 8,
     difficulty: "Intermediate",
-    title: "Install script runs on every clone",
+    title: "Trusted-looking script runs before dev",
     cwe: "CWE-494",
-    path: "package.json postinstall + scripts/postinstall-harmless.js",
+    path: "package.json dev (tsx scripts/sync-dev-env.ts && next dev; runs dont-install-this-pkg/scripts/postinstall.js) + scripts/postinstall-harmless.js",
   },
   {
     id: "security-headers",

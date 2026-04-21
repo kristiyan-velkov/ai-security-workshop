@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "tsx scripts/sync-dev-env.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "node node_modules/dont-install-this-pkg/index.js"
+    "lint": "next lint"
   },
   "dependencies": {
     "@supabase/ssr": "^0.6.1",
@@ -27,6 +27,7 @@
     "eslint": "^9",
     "eslint-config-next": "^15.5.15",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }

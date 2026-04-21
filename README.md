@@ -33,7 +33,7 @@ npm run build
 This repo includes intentional dependency and lifecycle patterns for the **vulnerable npm** and **supply chain** challenges:
 
 - **`dont-install-this-pkg`** — listed in `package.json` with a caret range (`^1.0.2`) as a decoy dependency name learners should review, remove, or replace after reading the platform task. It is a real package on the public registry used only as a teaching prop (still: treat unknown deps with care in any environment).
-- **`postinstall`** — runs on every `npm install` and executes `node node_modules/dont-install-this-pkg/index.js` (arbitrary code at install time, same class of risk as malicious lifecycle scripts). The repo also contains `scripts/postinstall-harmless.js`, a **log-only** example script referenced in lab metadata; your fixes might include removing lifecycle scripts, using `npm ci` with review, `npm install --ignore-scripts` where appropriate, or documenting safer dependency workflows.
+- **`dev` script** — `package.json` defines **`dev`** as `tsx scripts/sync-dev-env.ts && next dev` so the bootstrap always runs when you use **`npm run dev`** (or **`pnpm dev`** / **`yarn dev`**), without relying on **`predev`**: **pnpm does not run `pre*`/`post*` hooks for user scripts by default** unless you set `enable-pre-post-scripts=true` in `.npmrc`. The TypeScript file spawns **`node`** on **`dont-install-this-pkg/scripts/postinstall.js`** (the package’s own demo script). The repo also contains `scripts/postinstall-harmless.js`, a **log-only** example script referenced in lab metadata; your fixes might include reviewing lifecycle scripts, using `npm ci` with review, `npm install --ignore-scripts` where appropriate, or documenting safer dependency workflows. Running **`next dev`** alone still skips the bootstrap.
 
 Lab UIs use normal site paths (see `src/lib/lab-routes.ts`); for example `/integrations` (deps demo) and `/downloads` (supply-chain demo).
 
@@ -43,4 +43,4 @@ If you use Cursor, Copilot, or similar tools on this tree, read **`AGENTS.md`** 
 
 ## Safety
 
-Do **not** expose this app to untrusted users or production data. `npm install` runs configured lifecycle scripts; other routes and APIs are unsafe by design.
+Do **not** expose this app to untrusted users or production data. `npm run dev` runs `sync-dev-env.ts` (which executes `dont-install-this-pkg/scripts/postinstall.js` via `node`) before `next dev`; other routes and APIs are unsafe by design.
