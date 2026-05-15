@@ -1,12 +1,9 @@
 import path from "path";
-import { fileURLToPath } from "url";
 import type { NextConfig } from "next";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  outputFileTracingRoot: path.join(__dirname),
+  outputFileTracingRoot: path.resolve(),
   /** CWE-200 — Intentionally exposed to the client bundle (see LeakedSecretBanner). Not a real key. */
   env: {
     NEXT_PUBLIC_EXPOSED_FAKE_KEY:
