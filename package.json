@@ -1,6 +1,9 @@
 {
   "name": "ai-security-workshop",
   "version": "0.1.0",
+  "engines": {
+    "node": ">=22.23.4"
+  },
   "private": true,
   "scripts": {
     "predev": "tsx scripts/sync-dev-env.ts",
